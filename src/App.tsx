@@ -1,14 +1,29 @@
-import { FC, ReactElement } from 'react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { customTheme } from './theme/customTheme';
-import { Dashboard } from  './pages/dashboard/dashboard';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
+import React, { FC, ReactElement } from 'react';
 
-const App:FC = (): ReactElement => {
+import { Dashboard } from './pages/dashboard/dashboard';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { customTheme } from './theme/customTheme';
+import ComposeContext from './context/Compose.context';
+import { rootContext } from './context/root.context';
+// Create a client
+const queryClient = new QueryClient();
+
+const App: FC = (): ReactElement => {
   return (
-    <ThemeProvider theme={customTheme}>
+    <QueryClientProvider client={queryClient}>
+      <ComposeContext components={rootContext}>
+        <ThemeProvider theme={customTheme}>
         <CssBaseline />
-        <Dashboard/>
-    </ThemeProvider>
+        <Dashboard />
+      </ThemeProvider>
+      </ComposeContext>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

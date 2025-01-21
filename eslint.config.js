@@ -15,6 +15,10 @@ export default [
     extends: [
       "prettier"
     ],
-    plugins: ["react", "@typescript-eslint", "prettier"]
+    plugins: ["react", "@typescript-eslint", "prettier"],
+    "rules": {
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "off"
+  },
   }
 ];
